@@ -49,6 +49,7 @@
             <div>
             <input type="radio" name="genero" value="hombre"  <% if (Sesion.getAttribute("genero") != null) { if(Sesion.getAttribute("genero").equals("hombre")) { %> checked  <% } } %>/>
             Hombre</div>
+        <div>
             <div>
             <input type="radio" name="genero" value="mujer" <% if (Sesion.getAttribute("genero") != null) { if(Sesion.getAttribute("genero").equals("mujer")) { %> checked   <% } } %>/>
             Mujer</div>
