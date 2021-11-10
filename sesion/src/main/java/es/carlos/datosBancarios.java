@@ -22,11 +22,9 @@ public class datosBancarios extends HttpServlet {
     protected void guardarDatos(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         HttpSession Sesion = request.getSession();
-
         if (request.getParameter("cuentaCorriente") != null) {
             Sesion.setAttribute("cuentaCorriente", request.getParameter("cuentaCorriente"));
         }
-
         String rutaContexto = request.getContextPath();
         String vistaDestino = "/resumen.jsp";
         response.sendRedirect(rutaContexto + vistaDestino);
