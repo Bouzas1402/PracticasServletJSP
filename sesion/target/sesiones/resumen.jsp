@@ -2,15 +2,6 @@
 <%@ page import="jakarta.servlet.RequestDispatcher" %>
 
 <%@ page isErrorPage="true"%>
-
-<%--
-  Created by IntelliJ IDEA.
-  User: carlo
-  Date: 07/11/2021
-  Time: 19:06
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -40,28 +31,28 @@
 </form>
 <fieldset>
     <legend>Datos personales:</legend>
-    <label>Nombre : <span><% if(Sesion.getAttribute("nombre") != null) { %><%= Sesion.getAttribute("nombre") %><% } %></span></label>
-    <label>Apellidos : <span><% if(Sesion.getAttribute("apellidos") != null) { %><%= Sesion.getAttribute("apellidos") %><% } %></span></label>
+    <label>Nombre : <span><% if(Sesion.getAttribute("nombre") != null) { out.print(Sesion.getAttribute("nombre")); } %></span></label>
+    <label>Apellidos : <span><% if(Sesion.getAttribute("apellidos") != null) { out.print(Sesion.getAttribute("apellidos"));  } %></span></label>
     <br>
-    <label>Fecha de nacimiento : <% if(Sesion.getAttribute("fechaNacimiento") != null) { %><%= Sesion.getAttribute("fechaNacimiento") %><% } %></label>
+    <label>Fecha de nacimiento : <% if(Sesion.getAttribute("fechaNacimiento") != null) { out.print(Sesion.getAttribute("fechaNacimiento")); } %></label>
     <br>
-    <label>Genero : <% if(Sesion.getAttribute("genero") != null) { %><%= Sesion.getAttribute("genero") %><% } %></label>
+    <label>Genero : <% if(Sesion.getAttribute("genero") != null) { out.print(Sesion.getAttribute("genero")); } %></label>
     <label>Casado : <% if(Sesion.getAttribute("casado") != null && Sesion.getAttribute("casado").equals("Casado/a")) { %> SI <% } else { %> NO <% } %></label>
     <label>Hijos : <% if(Sesion.getAttribute("hijos") != null && Sesion.getAttribute("hijos").equals("SI")) { %> SI <% } else { %> NO <% } %></label>
     <br>
-    <label>Nacionalidad : <% if(Sesion.getAttribute("nacionalidad") != null) { %><%= Sesion.getAttribute("nacionalidad") %><% } %></label>
+    <label>Nacionalidad : <% if(Sesion.getAttribute("nacionalidad") != null) { out.print(Sesion.getAttribute("nacionalidad")); } %></label>
 </fieldset>
 <fieldset>
     <legend>Datos profesionales</legend>
-    <label>Departamento : <% if(Sesion.getAttribute("departamento") != null) { %><%= Sesion.getAttribute("departamento") %><% } %></label>
+    <label>Departamento : <% if(Sesion.getAttribute("departamento") != null) { out.print(Sesion.getAttribute("departamento")); } %></label>
     <br>
-    <label>Salario : <% if(Sesion.getAttribute("salario") != null) { %><%= Sesion.getAttribute("salario") %><% } %></label>
+    <label>Salario : <% if(Sesion.getAttribute("salario") != null) { out.print(Sesion.getAttribute("salario")); } %></label>
     <br>
-    <label>Comentario : <% if(Sesion.getAttribute("comentarios") != null) { %><%= Sesion.getAttribute("comentarios") %><% } %></label>
+    <label>Comentario : <% if(Sesion.getAttribute("comentarios") != null) { out.print(Sesion.getAttribute("comentarios")); } %></label>
 </fieldset>
 <fieldset>
     <legend>Datos bancarios</legend>
-    <label>Cuenta corriente : <% if(Sesion.getAttribute("cuentaCorriente") != null) { %><%= Sesion.getAttribute("cuentaCorriente") %><% } %></label>
+    <label>Cuenta corriente : <% if(Sesion.getAttribute("cuentaCorriente") != null) { out.print(Sesion.getAttribute("cuentaCorriente")); } %></label>
 </fieldset>
 <a href="Paso1_datosPersonales.jsp">Volver al principio</a>
 </body>

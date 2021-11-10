@@ -1,8 +1,7 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.RequestDispatcher" %>
-
+<%@ page import="java.util.Locale" %>
 <%@ page isErrorPage="true"%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -12,7 +11,6 @@
 <body>
 <%
     HttpSession Sesion = request.getSession(true);
-
         if (request.getParameter("datos_profesionales") != null){
             RequestDispatcher redireccion = request.getRequestDispatcher("Paso2_datosProfesionales.jsp");
             redireccion.forward(request, response);
@@ -24,6 +22,8 @@
             redireccion.forward(request, response);
         }
 
+        String [] genero = {"hombre", "mujer", "otros"};
+        String [] nacionalidades = {"española", "portuguesa", "italiana", "francesa", "alemana", "inglesa"};
 %>
 <form action="Paso1_datosPersonales.jsp" method="post">
     <input type="submit" value="1" name="datos_personales" />
@@ -35,41 +35,48 @@
     <fieldset>
         <legend>Datos personales</legend>
         <label>
-            Nombre:   <input type="text" name="nombre" placeholder=" <% if (Sesion.getAttribute("genero") != null) { %><%= Sesion.getAttribute("nombre") %><%  } %>"/>
+            Nombre:   <input type="text" name="nombre" value="<% if (Sesion.getAttribute("nombre") != null) { out.print(Sesion.getAttribute("nombre"));   } %>" />
         </label>
         <label>
-            Apellidos:   <input type="text" name="apellidos"  placeholder="<% if (Sesion.getAttribute("genero") != null) { %><%= Sesion.getAttribute("apellidos") %><%  } %>"/>
+            Apellidos:   <input type="text" name="apellidos"  value="<% if (Sesion.getAttribute("apellidos") != null) { out.print(Sesion.getAttribute("apellidos"));  } %>"/>
         </label>
          <br/>
         <label>
-            Fecha:  <input type="date" name="fechaNacimiento" value="<% if (Sesion.getAttribute("genero") != null) { %><%= Sesion.getAttribute("fechaNacimiento") %><%  } %>"/>
+            Fecha:  <input type="date" name="fechaNacimiento" value="<% if (Sesion.getAttribute("fechaNacimiento") != null) { out.print(Sesion.getAttribute("fechaNacimiento")); } %>"/>
         </label>
         <br/>
         <label>Genero : </label>
-            <div>
-            <input type="radio" name="genero" value="hombre"  <% if (Sesion.getAttribute("genero") != null) { if(Sesion.getAttribute("genero").equals("hombre")) { %> checked  <% } } %>/>
-            Hombre</div>
-        <div>
-            <div>
-            <input type="radio" name="genero" value="mujer" <% if (Sesion.getAttribute("genero") != null) { if(Sesion.getAttribute("genero").equals("mujer")) { %> checked   <% } } %>/>
-            Mujer</div>
-            <div>
-                <input type="radio" name="genero" value="otros" <% if (Sesion.getAttribute("genero") != null) { if (Sesion.getAttribute("genero").equals("otros")) { %> checked <% } } %>/>
-            Otros</div>
-        </div>
+        <%
+            for (int i = 0; i < genero.length; i++){
+                String checked;
+                if (Sesion.getAttribute("genero") != null && Sesion.getAttribute("genero").equals(genero[i])){
+                    checked =  " selected";
+                } else {
+                    checked = "";
+                }
+                out.print("<label> " + genero[i] + "" + "<input type='radio' name='genero' value='" + genero[i] + "' " + checked + "/></label>");
+        }
+        %>
+        <br>
         <label>Casado pareja de hecho:
-            <input type="checkbox" name="estado_civil" value="casado" <% if(Sesion.getAttribute("casado") != null && Sesion.getAttribute("casado").equals("Casado/a")) { %> <%= "checked" %><% } %>/>
+            <input type="checkbox" name="estado_civil" value="casado" <% if(Sesion.getAttribute("casado") != null && Sesion.getAttribute("casado").equals("Casado/a")) { %> checked <% } %>/>
         </label>
         <label>Hijos:
-            <input type="checkbox" name="hijos" value="hijos" <% if(Sesion.getAttribute("hijos") != null && Sesion.getAttribute("hijos").equals("SI")) { %> <%= "checked" %><% } %> />
+            <input type="checkbox" name="hijos" value="hijos" <% if(Sesion.getAttribute("hijos") != null && Sesion.getAttribute("hijos").equals("SI")) { %> checked <% } %> />
         </label>
         <label>Nacionalidad:
             <select name="nacionalidad">
-                <option name="española" value="española" <% if (Sesion.getAttribute("nacionalidad") != null) { if(Sesion.getAttribute("nacionalidad").equals("española")) { %> selected="selected" <% } } %>>Español</option>
-                <option name="portuguesa" value="portuguesa" <% if (Sesion.getAttribute("nacionalidad") != null) { if(Sesion.getAttribute("nacionalidad").equals("portuguesa")) { %> selected="selected" <% } } %>>Portugues</option>
-                <option name="francesa" value="francesa" <% if (Sesion.getAttribute("nacionalidad") != null) { if(Sesion.getAttribute("nacionalidad").equals("francesa")) { %>  selected="selected" <% } } %>>Frances</option>
-                <option name="italiana" value="italiana" <%  if (Sesion.getAttribute("nacionalidad") != null) { if(Sesion.getAttribute("nacionalidad").equals("italiana")) { %> selected="selected" <% } } %>>Italiano</option>
-                <option name="alemana" value="alemana" <%  if (Sesion.getAttribute("nacionalidad") != null) { if(Sesion.getAttribute("nacionalidad").equals("alemana")) { %> selected="selected" <% } } %>>Aleman</option>
+                <%
+                for (int i = 0; i < nacionalidades.length; i++) {
+                    String selected;
+                        if (Sesion.getAttribute("nacionalidad") != null && Sesion.getAttribute("nacionalidad").equals(nacionalidades[i])){
+                            selected =  " selected";
+                        } else {
+                            selected = "";
+                        }
+                        out.print("<option  name='" + nacionalidades[i] + "' value='" + nacionalidades[i] +  "' " + selected + ">" + nacionalidades[i].toUpperCase() + "</option>");
+                }
+                %>
             </select>
         </label>
         <br/>

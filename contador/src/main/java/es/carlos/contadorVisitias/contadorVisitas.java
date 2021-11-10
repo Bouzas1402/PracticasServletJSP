@@ -35,9 +35,13 @@ public class contadorVisitas extends HttpServlet {
 			String vistaDestino = "/contadorVisitas.html";
 			response.sendRedirect(rutaContexto + vistaDestino);
 		} else {
-
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			out.println("<html>");
+			out.println("<head>");
+			out.println("<title>Tipo de usuario</title>");
+			out.println("</head>");
+			out.println("<body>");
 			Cookie unaCookie = null;
 		try {
 			Cookie []arrayCookie = request.getCookies();
@@ -70,8 +74,6 @@ public class contadorVisitas extends HttpServlet {
 			out.close();
 		}
 	}
-
-
 }
 
 	private String dibujarFormulario(String query, int contador){

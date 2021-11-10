@@ -81,6 +81,7 @@
         <label>Clave <input type="password" name="clave"></label> <br>
         <input type="submit" value="Contador"/>
     </form>
+
         <%
        }
 %>
