@@ -35,6 +35,7 @@ public class contadorVisitas extends HttpServlet {
 			String vistaDestino = "/contadorVisitas.html";
 			response.sendRedirect(rutaContexto + vistaDestino);
 		} else {
+
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			Cookie unaCookie = null;
@@ -103,5 +104,4 @@ public class contadorVisitas extends HttpServlet {
 		}
 		return false;
 	}
-
 }
