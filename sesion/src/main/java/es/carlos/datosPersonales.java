@@ -40,14 +40,12 @@ public class datosPersonales extends HttpServlet {
         } else {
             Sesion.setAttribute("casado", "Soltero/a");
         }
-
         if (request.getParameter("hijos") != null) {
             Sesion.setAttribute("hijos", "SI");
         } else {
             Sesion.setAttribute("hijos", "NO");
         }
         Sesion.setAttribute("nacionalidad", request.getParameter("nacionalidad"));
-
         String rutaContexto = request.getContextPath();
         String vistaDestino = "/Paso2_datosProfesionales.jsp";
         response.sendRedirect(rutaContexto + vistaDestino);

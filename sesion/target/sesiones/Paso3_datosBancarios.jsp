@@ -14,14 +14,14 @@
     HttpSession Sesion = request.getSession(true);
 
     if (request.getParameter("datos_personales") != null){
-        RequestDispatcher rd = request.getRequestDispatcher("Paso1_datosPersonales.jsp");
-        rd.forward(request, response);
+        RequestDispatcher redireccion = request.getRequestDispatcher("Paso1_datosPersonales.jsp");
+        redireccion.forward(request, response);
     } else if (request.getParameter("datos_profesionales") != null){
-        RequestDispatcher rd = request.getRequestDispatcher("Paso2_datosProfesionales.jsp");
-        rd.forward(request, response);
+        RequestDispatcher redireccion = request.getRequestDispatcher("Paso2_datosProfesionales.jsp");
+        redireccion.forward(request, response);
     } else if (request.getParameter("resumen") != null){
-        RequestDispatcher rd = request.getRequestDispatcher("resumen.jsp");
-        rd.forward(request, response);
+        RequestDispatcher redireccion = request.getRequestDispatcher("resumen.jsp");
+        redireccion.forward(request, response);
     }
 %>
 <form action="Paso3_datosBancarios.jsp" method="post">

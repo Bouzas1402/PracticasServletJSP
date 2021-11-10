@@ -1,8 +1,6 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.RequestDispatcher" %>
-
 <%@ page isErrorPage="true"%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -14,14 +12,14 @@
     HttpSession Sesion = request.getSession(true);
 
     if (request.getParameter("datos_personales") != null){
-        RequestDispatcher rd = request.getRequestDispatcher("Paso1_datosPersonales.jsp");
-        rd.forward(request, response);
+        RequestDispatcher redireccion = request.getRequestDispatcher("Paso1_datosPersonales.jsp");
+        redireccion.forward(request, response);
     } else if (request.getParameter("datos_bancarios") != null){
-        RequestDispatcher rd = request.getRequestDispatcher("Paso3_datosBancarios.jsp");
-        rd.forward(request, response);
+        RequestDispatcher redireccion = request.getRequestDispatcher("Paso3_datosBancarios.jsp");
+        redireccion.forward(request, response);
     } else if (request.getParameter("resumen") != null){
-        RequestDispatcher rd = request.getRequestDispatcher("resumen.jsp");
-        rd.forward(request, response);
+        RequestDispatcher redireccion = request.getRequestDispatcher("resumen.jsp");
+        redireccion.forward(request, response);
     }
 %>
 <form action="Paso2_datosProfesionales.jsp" method="post">
