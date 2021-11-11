@@ -31,7 +31,7 @@
     <fieldset>
         <legend>Datos bancarios</legend>
         <label> Cuenta corriente:
-            <input type="text" name="cuentaCorriente" placeholder="<% if(Sesion.getAttribute("cuentaCorriente") != null) {  out.print(Sesion.getAttribute("cuentaCorriente"));  } %>">
+            <input type="text" name="cuentaCorriente" value="<% if(Sesion.getAttribute("cuentaCorriente") != null) {  out.print(Sesion.getAttribute("cuentaCorriente"));  } %>">
         </label>
         <br>
         <input name="datosBancarios" type="submit" value="Grabar informacion e ir al resumen final"/>

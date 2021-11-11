@@ -1,6 +1,5 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.RequestDispatcher" %>
-<%@ page import="java.util.Locale" %>
 <%@ page isErrorPage="true"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
@@ -10,6 +9,7 @@
 </head>
 <body>
 <%
+
     HttpSession Sesion = request.getSession(true);
         if (request.getParameter("datos_profesionales") != null){
             RequestDispatcher redireccion = request.getRequestDispatcher("Paso2_datosProfesionales.jsp");

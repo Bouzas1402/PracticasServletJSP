@@ -1,4 +1,4 @@
-package es.carlos.contadorVisitias;
+package com.example.demo;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -45,16 +45,18 @@ public class contadorVisitas extends HttpServlet {
 			out.println("<h1>Bienvenido aprendiz</h1>");
 			Cookie unaCookie = null;
 		try {
-			Cookie []arrayCookie = request.getCookies();
-			for (int i = 0; i < arrayCookie.length; i++) {
-				if (arrayCookie[i].getName().equals(nombre)){
-					for (int j = 0; j < profesiones.length; j++) {
-						if (arrayCookie[i].getValue().split("=")[0].equals(profesiones[j]) && arrayCookie[i].getValue().split("=")[1].matches("[0-9]+")){
-							unaCookie = arrayCookie[i];
+			Cookie[] arrayCookie = request.getCookies();
+			if (arrayCookie != null) {
+				for (int i = 0; i < arrayCookie.length; i++) {
+					if (arrayCookie[i].getName().equals(nombre)) {
+						for (int j = 0; j < profesiones.length; j++) {
+							if (arrayCookie[i].getValue().split("=")[0].equals(profesiones[j]) && arrayCookie[i].getValue().split("=")[1].matches("[0-9]+")) {
+								unaCookie = arrayCookie[i];
+							}
 						}
 					}
 				}
-			}
+		}
 			if (unaCookie == null) {
 				out.println(dibujarFormulario(1, profesiones, "alfarero", nombre));
 			} else {

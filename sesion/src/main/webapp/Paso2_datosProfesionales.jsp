@@ -50,11 +50,11 @@
         </label>
         <br/>
         <label> Salario :
-            <input name="salario" type="number" placeholder=" <% if (Sesion.getAttribute("salario") != null) { out.print(Sesion.getAttribute("salario")); } %>">
+            <input name="salario" type="number" value="<% if (Sesion.getAttribute("salario") != null) { out.print(Sesion.getAttribute("salario")); } %>">
         </label>
         <br/>
         <label for="comentarios">Comentarios : </label> <br>
-            <textarea id="comentarios" name="comentarios" rows="10" cols="50" placeholder=" <% if (Sesion.getAttribute("comentarios") != null) { out.print(Sesion.getAttribute("comentarios")); } %>"></textarea>
+            <textarea id="comentarios" name="comentarios" rows="10" cols="50" value="<% if (Sesion.getAttribute("comentarios") != null) { out.print(Sesion.getAttribute("comentarios")); } %>"></textarea>
         <br>
         <input name="datosProfesionales" type="submit" value="Grabar informacion e ir al paso 3 - Datos bancarios"/>
     </fieldset>

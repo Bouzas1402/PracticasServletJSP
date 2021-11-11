@@ -9,6 +9,7 @@
 </head>
 <body>
 <%
+
     HttpSession Sesion = request.getSession(true);
         if (request.getParameter("datos_profesionales") != null){
             RequestDispatcher redireccion = request.getRequestDispatcher("Paso2_datosProfesionales.jsp");

@@ -54,6 +54,6 @@
     <legend>Datos bancarios</legend>
     <label>Cuenta corriente : <% if(Sesion.getAttribute("cuentaCorriente") != null) { out.print(Sesion.getAttribute("cuentaCorriente")); } %></label>
 </fieldset>
-<a href="Paso1_datosPersonales.jsp">Volver al principio</a>
+<a href="BorrarSesion">Volver al principio</a>
 </body>
 </html>

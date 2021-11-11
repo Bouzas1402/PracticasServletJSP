@@ -1,4 +1,4 @@
-package es.carlos.contadorVisitias;
+package com.example.demo;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
