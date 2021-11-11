@@ -27,9 +27,9 @@ public class contadorVisitas extends HttpServlet {
 	}
 
 	protected void procesaSolicitud(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String []profesiones = {"alfarero", "brujo", "curtidor"};
 		String nombre = request.getParameter("usuario");
-		String clave = request.getParameter("clave");
-		boolean usuarioValido = comprobarUsuarios(nombre,clave);
+		boolean usuarioValido = comprobarUsuarios(nombre);
 		if (!usuarioValido) {
 			String rutaContexto = request.getContextPath();
 			String vistaDestino = "/contadorVisitas.html";
@@ -42,28 +42,23 @@ public class contadorVisitas extends HttpServlet {
 			out.println("<title>Tipo de usuario</title>");
 			out.println("</head>");
 			out.println("<body>");
+			out.println("<h1>Bienvenido aprendiz</h1>");
 			Cookie unaCookie = null;
 		try {
 			Cookie []arrayCookie = request.getCookies();
-
 			for (int i = 0; i < arrayCookie.length; i++) {
 				if (arrayCookie[i].getName().equals(nombre)){
-					String valorCookie = arrayCookie[i].getValue();
-					if (valorCookie.split("-")[0] != null && valorCookie.split("-")[1] != null){
-						unaCookie = arrayCookie[i];
+					for (int j = 0; j < profesiones.length; j++) {
+						if (arrayCookie[i].getValue().split("=")[0].equals(profesiones[j]) && arrayCookie[i].getValue().split("=")[1].matches("[0-9]+")){
+							unaCookie = arrayCookie[i];
+						}
 					}
 				}
 			}
 			if (unaCookie == null) {
-				String query = request.getQueryString();
-				out.println(dibujarFormulario(query, 1));
+				out.println(dibujarFormulario(1, profesiones, "alfarero", nombre));
 			} else {
-				String valorCookie = unaCookie.getValue();
-				String [] valores = valorCookie.split("-");
-				int valorContador = Integer.parseInt(valores[1]);
-				valorContador++;
-				String query = request.getQueryString();
-				out.println(dibujarFormulario(query, valorContador));
+				out.println(dibujarFormulario((Integer.parseInt(unaCookie.getValue().split("=")[1]) + 1), profesiones, unaCookie.getValue().split("=")[0], nombre));
 			}
 		} catch (Exception e){
 			out.println("Se produce una excepción: ");
@@ -76,34 +71,31 @@ public class contadorVisitas extends HttpServlet {
 	}
 }
 
-	private String dibujarFormulario(String query, int contador){
+	private String dibujarFormulario(int contador, String[] profesiones, String profesion, String nombre){
+		String checked;
 		String respuesta = "";
-		respuesta += "<html>";
-		respuesta += "<head>";
-		respuesta += "<title>Tipo de usuario</title>";
-		respuesta += "</head>";
-		respuesta += "<body>";
-		respuesta += "<h1>Bienvenido aprendiz</h1>";
 		respuesta += "<form action='GuardaCookie'>";
-		respuesta += "<label for=\"Alfarero\">Alfarero</label><input type=\"radio\" name=\"" + query + "=" + contador + "\" id=\"Alfarero\" value=\"alfarero\" checked/>";
-		respuesta += "<label for=\"Brujo\">Brujo</label><input type=\"radio\" name=\"" + query + "=" + contador + "\" id=\"Brujo\" value=\"Brujo\"/>";
-		respuesta += "<label for=\"Curtidor\">Curtidor</label><input type=\"radio\" name=\"" + query + "=" + contador +  "\" id=\"Curtidor\" value=\"curtidor\" />";
-		respuesta += "<input type=\"submit\" value=\"Enviar\" />";
+		for (int i = 0; i < profesiones.length; i++) {
+			if (profesiones[i].equals(profesion)){
+				checked = " checked ";
+			} else {
+				checked = "";
+			}
+			respuesta += "<label for='" + profesiones[i] +"'>" + profesiones[i] + "</label><input type='radio'  id='" + profesiones[i] + "' name='profesiones' value='" + profesiones[i] + "=" + contador + "=" + nombre + "' "+ checked + " />";
+		}
+		respuesta += "<input type='submit' value='Enviar' />";
 		respuesta += "<p>Contador de visitas : " + contador + "</p>";
 		respuesta += "</form>";
 		return respuesta;
 	}
 
-	private boolean comprobarUsuarios (String usuario, String clave) {
+
+	public boolean comprobarUsuarios (String usuario) {
 		Map<String, String> usuariosValidos = new LinkedHashMap<>();
 		usuariosValidos.put("carlos", "quevedo");
 		usuariosValidos.put("juan", "quevedo");
 		usuariosValidos.put("ana", "quevedo");
-		boolean nombreValido = usuariosValidos.containsKey(usuario);
-		boolean claveValida = usuariosValidos.containsValue(clave);
-		if (nombreValido && claveValida){
-			return true;
-		}
-		return false;
+			return usuariosValidos.containsKey(usuario);
+
 	}
 }

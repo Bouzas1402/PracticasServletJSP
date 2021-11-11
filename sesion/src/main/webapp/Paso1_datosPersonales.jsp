@@ -1,6 +1,5 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="jakarta.servlet.RequestDispatcher" %>
-<%@ page import="java.util.Locale" %>
 <%@ page isErrorPage="true"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>

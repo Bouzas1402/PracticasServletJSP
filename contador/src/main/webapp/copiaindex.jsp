@@ -1,7 +1,7 @@
 <%@ page import="jakarta.servlet.http.Cookie" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.LinkedHashMap" %>
-<%@ page import="es.carlos.contadorVisitias.contadorVisitas" %>
+<%@ page import="es.carlos.contadorVisitias" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -25,10 +25,23 @@
             }
 
         if (request.getParameter("usuario") != null) {
-            contadorVisitas comprobar = new contadorVisitas();
-            if (!comprobar.comprobarUsuarios(request.getParameter("usuario"))) {
-            out.print(formularioInicio());
-       } else {
+
+            Map<String, String> usuariosValidos = new LinkedHashMap<>();
+            usuariosValidos.put("carlos", "quevedo");
+            usuariosValidos.put("juan", "quevedo");
+            usuariosValidos.put("ana", "quevedo");
+            boolean nombreValido = usuariosValidos.containsKey(request.getParameter("usuario"));
+            boolean claveValida = usuariosValidos.containsValue(request.getParameter("clave"));
+            if (!nombreValido && !claveValida) { %>
+
+                <form name="f1" action="index.jsp">
+                    <label>Usuario <input type="text" name="usuario"></label> <br>
+                    <label>Clave <input type="password" name="clave"></label> <br>
+                    <input type="submit" value="Contador"/>
+                </form>
+
+
+            <% } else {
                 Cookie []arrayCookie = request.getCookies();
                 for (int i = 0; i < arrayCookie.length; i++) {
                     if (arrayCookie[i].getName().equals(request.getParameter("usuario"))){
@@ -64,19 +77,16 @@
        <% }
     }
        } else {
-            out.print(formularioInicio());
+    %>
+    <form name="f1" action="index.jsp">
+        <label>Usuario <input type="text" name="usuario"></label> <br>
+        <label>Clave <input type="password" name="clave"></label> <br>
+        <input type="submit" value="Contador"/>
+    </form>
+
+        <%
        }
 %>
-
-    <%!
-    public String formularioInicio (){
-        return "<form name=\"f1\" action=\"index.jsp\">\n" +
-                "                    <label>Usuario <input type=\"text\" name=\"usuario\"></label> <br>\n" +
-                "                    <label>Clave <input type=\"password\" name=\"clave\"></label> <br>\n" +
-                "                    <input type=\"submit\" value=\"Contador\"/>\n" +
-                "                </form>";
-    }
-    %>
 </body>
 </html>
 

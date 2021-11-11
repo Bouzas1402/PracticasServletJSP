@@ -26,13 +26,8 @@ public class GuardaCookie extends HttpServlet {
 
         protected void procesaSolicitud(HttpServletRequest request, HttpServletResponse response) throws IOException {
             try {
-                String query = request.getQueryString();
-                String [] separaDatos = query.split("=");
-                String profesion = separaDatos[1];
-                String [] separarDatos2 = separaDatos[0].split("%3D");
-                String nombre = separarDatos2[1].split("%26")[0];
-                String contador = separarDatos2[3];
-                Cookie cookie = new Cookie(nombre, "" + profesion + "-" + contador);
+                String nombre = request.getParameter("profesiones").split("=")[2];
+                Cookie cookie = new Cookie(nombre, "" + request.getParameter("profesiones").split("=")[0] + "=" + request.getParameter("profesiones").split("=")[1]);
                 cookie.setMaxAge(60 * 60 * 24 * 365 * 4);
                 response.addCookie(cookie);
                 response.sendRedirect(request.getContextPath() + "/contadorVisitas.html");
