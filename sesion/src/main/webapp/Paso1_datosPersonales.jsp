@@ -27,7 +27,7 @@
             redireccion.forward(request, response);
         }
 
-        String [] genero = {"hombre", "mujer", "otros"};
+        String [] generos = {"hombre", "mujer", "otros"};
         String [] nacionalidades = {"española", "portuguesa", "italiana", "francesa", "alemana", "inglesa"};
 %>
 <form action="Paso1_datosPersonales.jsp" method="post">
@@ -52,15 +52,15 @@
         <br/>
         <label>Genero : </label>
         <%
-            for (int i = 0; i < genero.length; i++){
+            for (String genero : generos) {
                 String checked;
-                if (Sesion.getAttribute("genero") != null && Sesion.getAttribute("genero").equals(genero[i])){
-                    checked =  " checked ";
+                if (Sesion.getAttribute("genero") != null && Sesion.getAttribute("genero").equals(genero)) {
+                    checked = " checked ";
                 } else {
                     checked = "";
                 }
-                out.print("<label> " + genero[i] + "" + "<input type='radio' name='genero' value='" + genero[i] + "' " + checked + "/></label>");
-        }
+                out.print("<label> " + genero + "" + "<input type='radio' name='genero' value='" + genero + "' " + checked + "/></label>");
+            }
         %>
         <br>
         <label>Casado pareja de hecho:
@@ -72,15 +72,15 @@
         <label>Nacionalidad:
             <select name="nacionalidad">
                 <%
-                for (int i = 0; i < nacionalidades.length; i++) {
-                    String selected;
-                        if (Sesion.getAttribute("nacionalidad") != null && Sesion.getAttribute("nacionalidad").equals(nacionalidades[i])){
-                            selected =  " selected";
+                    for (String nacionalidad : nacionalidades) {
+                        String selected;
+                        if (Sesion.getAttribute("nacionalidad") != null && Sesion.getAttribute("nacionalidad").equals(nacionalidad)) {
+                            selected = " selected";
                         } else {
                             selected = "";
                         }
-                        out.print("<option  name='" + nacionalidades[i] + "' value='" + nacionalidades[i] +  "' " + selected + ">" + nacionalidades[i].toUpperCase() + "</option>");
-                }
+                        out.print("<option  name='" + nacionalidad + "' value='" + nacionalidad + "' " + selected + ">" + nacionalidad.toUpperCase() + "</option>");
+                    }
                 %>
             </select>
         </label>
