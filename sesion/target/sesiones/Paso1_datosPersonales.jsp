@@ -10,6 +10,11 @@
 <body>
 <%
 
+    if (request.getParameter("borrar") != null && request.getParameter("borrar").equals("true")){
+        request.getSession().invalidate();
+    }
+
+
     HttpSession Sesion = request.getSession(true);
         if (request.getParameter("datos_profesionales") != null){
             RequestDispatcher redireccion = request.getRequestDispatcher("Paso2_datosProfesionales.jsp");
@@ -50,7 +55,7 @@
             for (int i = 0; i < genero.length; i++){
                 String checked;
                 if (Sesion.getAttribute("genero") != null && Sesion.getAttribute("genero").equals(genero[i])){
-                    checked =  " selected";
+                    checked =  " checked ";
                 } else {
                     checked = "";
                 }
