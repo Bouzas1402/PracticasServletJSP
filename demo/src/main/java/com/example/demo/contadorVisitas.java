@@ -77,13 +77,13 @@ public class contadorVisitas extends HttpServlet {
 		String checked;
 		String respuesta = "";
 		respuesta += "<form action='GuardaCookie'>";
-		for (int i = 0; i < profesiones.length; i++) {
-			if (profesiones[i].equals(profesion)){
+		for (String profesione : profesiones) {
+			if (profesione.equals(profesion)) {
 				checked = " checked ";
 			} else {
 				checked = "";
 			}
-			respuesta += "<label for='" + profesiones[i] +"'>" + profesiones[i] + "</label><input type='radio'  id='" + profesiones[i] + "' name='profesiones' value='" + profesiones[i] + "=" + contador + "=" + nombre + "' "+ checked + " />";
+			respuesta += "<label for='" + profesione + "'>" + profesione + "</label><input type='radio'  id='" + profesione + "' name='profesiones' value='" + profesione + "=" + contador + "=" + nombre + "' " + checked + " />";
 		}
 		respuesta += "<input type='submit' value='Enviar' />";
 		respuesta += "<p>Contador de visitas : " + contador + "</p>";
@@ -98,6 +98,5 @@ public class contadorVisitas extends HttpServlet {
 		usuariosValidos.put("juan", "quevedo");
 		usuariosValidos.put("ana", "quevedo");
 			return usuariosValidos.containsKey(usuario);
-
 	}
 }
