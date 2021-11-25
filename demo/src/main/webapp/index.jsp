@@ -50,6 +50,7 @@
     public String formularioInicio (){
         return "<form name='f1' action='index.jsp'><label>Usuario <input type='text' name='usuario'></label> <br><label>Clave <input type='password' name='clave'></label> <br><input type='submit' value='Contador'/></form>";
     }
+
     public String formularioProfesiones(String profesion, int contador, String usuario){
         String [] profesiones = {"alfarero", "brujo", "curtidor"};
         String respuesta = "<h1>Bienvenido aprendiz</h1><form action='index.jsp'>";
