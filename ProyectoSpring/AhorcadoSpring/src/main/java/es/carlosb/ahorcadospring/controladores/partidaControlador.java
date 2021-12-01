@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class partidaControlador {
@@ -20,8 +21,8 @@ public class partidaControlador {
     }
 
     @GetMapping("/partida/{id}")
-    public String partida (@PathVariable Integer id, Model model) {
-        model.addAttribute("partida", servicio.findAny(id));
+    public String partida (@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("partida", servicio.findById(id));
         return "partida";
     }
 }

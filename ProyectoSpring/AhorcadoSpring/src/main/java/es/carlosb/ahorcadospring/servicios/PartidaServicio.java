@@ -24,7 +24,7 @@ public class PartidaServicio {
         return repositorio;
     }
 
-    public Partida findAny(Integer id) {
+    public Partida findById(Integer id) {
         return repositorio.get(id);
     }
 
