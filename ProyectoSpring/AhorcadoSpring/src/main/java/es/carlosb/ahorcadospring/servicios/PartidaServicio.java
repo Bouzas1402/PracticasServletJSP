@@ -1,6 +1,7 @@
 package es.carlosb.ahorcadospring.servicios;
 
 import es.carlosb.ahorcadospring.modelo.Partida;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import java.util.List;
 @Service // para que nos proporcione toda la maquinaria para que se comunique con un servicio.
 public class PartidaServicio {
 
+
     private List<Partida> repositorio = new ArrayList<>();
 
     public Partida add(Partida p) {
@@ -20,6 +22,10 @@ public class PartidaServicio {
 
     public List<Partida> findAll() {
         return repositorio;
+    }
+
+    public Partida findAny(Integer id) {
+        return repositorio.get(id);
     }
 
     @PostConstruct

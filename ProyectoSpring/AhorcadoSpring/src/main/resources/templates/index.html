@@ -10,16 +10,18 @@
 
     <table>
         <thead>
-            <th>10</th>
+            <th>Numero partida</th>
             <th>Palabra oculta</th>
             <th>Letras acertadas</th>
+            <th>Letras fallidas</th>
         </thead>
         <tbody>
         <tr th:each="partida : ${listaPartidas}">
             <td th:text="${partida.id}"></td>
             <td th:text="${partida.palabraOculta}"></td>
-            <td th:text="${partida.letrasAcertadas}"> </td>
-            <td><a th:href="">Jugar</a></td>
+            <td th:text="${partida.letrasAcertadas}"></td>
+            <td th:text="${partida.getLetrasFalladas}"> </td>
+            <td><a th:href="'partida/' + ${partida.id}">Jugar</a></td>
         </tr>
         </tbody>
         <tfoot>
