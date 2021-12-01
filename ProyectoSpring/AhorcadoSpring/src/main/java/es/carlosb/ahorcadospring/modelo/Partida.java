@@ -13,5 +13,9 @@ public class Partida {
 
     private String letrasAcertadas;
 
+    private String letrasFalladas;
+
+    private String intentos;
+
 
 }

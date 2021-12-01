@@ -24,9 +24,9 @@ public class PartidaServicio {
 
     @PostConstruct
     public void init(){
-        repositorio.addAll(Arrays.asList(new Partida(1,"coche", ""),
-            new Partida(2, "barco", ""),
-            new Partida(3,"avion", "")
+        repositorio.addAll(Arrays.asList(new Partida(1,"coche", "", "", "seis"),
+            new Partida(2, "barco", "", "", "seis"),
+            new Partida(3,"avion", "", "", "seis")
             )
         );
     }
