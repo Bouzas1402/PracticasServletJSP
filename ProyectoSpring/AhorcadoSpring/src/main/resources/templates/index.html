@@ -16,12 +16,12 @@
             <th>Letras fallidas</th>
         </thead>
         <tbody>
-        <tr th:each="partida : ${listaPartidas}">
+        <tr th:each="partida : ${partidas}">
             <td th:text="${partida.id}"></td>
             <td th:text="${partida.palabraOculta}"></td>
             <td th:text="${partida.letrasAcertadas}"></td>
             <td th:text="${partida.letrasFalladas}"> </td>
-            <td><a href="#" th:href="@{/partida/{id}(id=${partida.id})}">Jugar</a></td>
+            <td><a href="" th:href="@{/partida/{id}(id=${partida.id})}">Jugar</a></td>
         </tr>
         </tbody>
         <tfoot>

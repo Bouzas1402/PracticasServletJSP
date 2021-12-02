@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Partida</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body>
 
-    <h3 th:text="'Usted tiene ' + ${partida.intentos} ' intentos'">hola</h3>
+    <h3 th:text="'Usted tiene ' + ${partida.intentos} + ' intentos'">hola</h3>
+    <p th:id="${partida.intentos}"><img src="../static/img/FFFFFF.png" th:src="@{/img/FFFFFF.png}"></p>
+    <p id="palabrasAcertadas"> </p>
+    <form action="ahorcado" method="get">
+        <label> Introduce una letra:
+            <input type="text" name="letraIntroducida"  minlength="1" maxlength="1">
+        </label>
+        <br>
+        <input name="letraIntroducida" type="submit" value="Enviar letra"/>
+    </form>
+
 
 </body>
 </html>
