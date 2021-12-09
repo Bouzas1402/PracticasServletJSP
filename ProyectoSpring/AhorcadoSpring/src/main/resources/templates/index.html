@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ahorcado Spring</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 
@@ -28,15 +28,19 @@
         </tfoot>
     </table>
 
-    <form action="#" method="post"
-          th:action="@{/nueva}"
-          th:object="${partidas}">
-        <label> Introduce una nueva palabra:
-            <input th:field="*{palabraOculta}" class="form-control" type="text" th:name="palabra" th:id="palabra"/>
-        </label>
+    <form action="/nueva" method="post"
+          th:action="@{/nueva}">
+        <div class="form-group">
+            <label> Introduce una nueva palabra:
+                <input class="form-control" type="text" th:name="palabra" th:id="palabra"/>
+
+            </label>
+        </div>
         <br>
         <input name="enviar" type="submit" value="Enviar palabra"/>
     </form>
 
+
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
