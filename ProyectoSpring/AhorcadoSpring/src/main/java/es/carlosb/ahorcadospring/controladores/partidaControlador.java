@@ -5,8 +5,11 @@ import es.carlosb.ahorcadospring.servicios.PartidaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+
 @Controller
 public class partidaControlador {
 
@@ -16,18 +19,22 @@ public class partidaControlador {
     @GetMapping("/")
     public String index (Model model) {
         model.addAttribute("partidas", servicio.findAll());
+
         return "index";
     }
 
     @GetMapping("/partida/{id}")
-    public String partida (@PathVariable("id") int id, Model model) {
-        model.addAttribute("partida", servicio.findById(id));
+    public String partida (@PathVariable("id") long id, Model model) {
+        model.addAttribute("partida", servicio.findById((int)id));
         return "partida";
     }
 
-    @GetMapping("partida/{id}/{letra}")
-    public String letraIntroducida (@PathVariable("id") int id, @PathVariable("letra") char letra, Model model) {
-        Partida partida = servicio.findById(id);
+    @PostMapping("partida/letra")
+    public String letraIntroducida (@RequestParam(value = "letra") String letra, @RequestParam(value = "id") int id, Model model) {
+
+
+        model.addAttribute("letrasAcertadas", letra);
+        model.addAttribute("partida", servicio.findById(id));
 
         return "partida";
     }

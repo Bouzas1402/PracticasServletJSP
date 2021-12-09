@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Partida Finalizada</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<h1 th:text="${ganador}"></h1>
+<h1 th:text="${perdedor}"></h1>
+<a href="#"
+   th:href="@{/}">Jugar otra vez</a>
+
+</body>
+</html>
