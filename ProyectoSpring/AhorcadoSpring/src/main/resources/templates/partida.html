@@ -9,7 +9,9 @@
 
     <h3 th:text="'Usted tiene ' + ${partida.intentos} + ' intentos'">hola</h3>
     <p th:id="${partida.intentos}"><img src="../static/img/FFFFFF.png" th:src="@{/img/FFFFFF.png}"></p>
-    <p id="letrasAcertadas" th:text="${letrasAcertadas}"> </p>
+    <p id="letrasAcertadas" th:text="${partida.letrasAcertadas}"> </p>
+    <p id="letrasFalladas" th:text="${partida.letrasFalladas}"> </p>
+    <p id="respuesta" th:text="${respuesta}"> </p>
     <form action="#" method="post"
     th:action="@{/partida/letra}"
     th:object="${partida}">
@@ -19,7 +21,7 @@
         <input th:field="*{id}" type="hidden" th:value="${partida.id}" th:name="id" th:id="id" placeholder="Introduce una letra"/>
 
         <br>
-        <input name="letra" type="submit" value="Enviar letra"/>
+        <input name="enviar" type="submit" value="Enviar letra"/>
     </form>
 
 

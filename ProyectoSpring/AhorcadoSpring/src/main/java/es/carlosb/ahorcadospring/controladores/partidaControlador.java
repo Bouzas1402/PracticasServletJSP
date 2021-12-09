@@ -19,7 +19,6 @@ public class partidaControlador {
     @GetMapping("/")
     public String index (Model model) {
         model.addAttribute("partidas", servicio.findAll());
-
         return "index";
     }
 
@@ -31,11 +30,24 @@ public class partidaControlador {
 
     @PostMapping("partida/letra")
     public String letraIntroducida (@RequestParam(value = "letra") String letra, @RequestParam(value = "id") int id, Model model) {
-
-
-        model.addAttribute("letrasAcertadas", letra);
-        model.addAttribute("partida", servicio.findById(id));
-
+        Partida partida = servicio.findById(id);
+        String respuesta = servicio.letra(partida, letra);
+        if (partida.getIntentos().equals("Has ganado")) {
+            model.addAttribute("ganador", "Felicidades has ganado");
+            return "partidaFinalizada";
+        } else if (partida.getIntentos().equals("Has perdido")) {
+            model.addAttribute("perdedor", "Lo siento has perdido");
+            return "partidaFinalizada";
+        }
+        model.addAttribute("respuesta", respuesta);
+        model.addAttribute("partida", partida);
         return "partida";
     }
+
+    @PostMapping("/nueva")
+    public String nuevaPartida(@RequestParam(value = "palabra") String palabra) {
+        servicio.nuevaPalabra(palabra);
+        return "redirect:/";
+    }
+
 }

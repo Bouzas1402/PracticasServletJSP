@@ -13,14 +13,13 @@
         <thead>
             <th>Numero partida</th>
             <th>Palabra oculta</th>
-            <th>Letras acertadas</th>
+
             <th></th>
         </thead>
         <tbody>
         <tr th:each="partida : ${partidas}">
             <td th:text="${partida.id}"></td>
-            <td th:text="${partida.palabraOculta}"></td>
-            <td th:text="${partida.letras}"></td>
+            <td th:text="${partida.letrasAcertadas}"></td>
             <td><a href="" th:href="@{/partida/{id}(id=${partida.id})}">Jugar</a></td>
         </tr>
         </tbody>
@@ -28,6 +27,16 @@
 
         </tfoot>
     </table>
+
+    <form action="#" method="post"
+          th:action="@{/nueva}"
+          th:object="${partidas}">
+        <label> Introduce una nueva palabra:
+            <input th:field="*{palabraOculta}" class="form-control" type="text" th:name="palabra" th:id="palabra"/>
+        </label>
+        <br>
+        <input name="enviar" type="submit" value="Enviar palabra"/>
+    </form>
 
 </body>
 </html>
