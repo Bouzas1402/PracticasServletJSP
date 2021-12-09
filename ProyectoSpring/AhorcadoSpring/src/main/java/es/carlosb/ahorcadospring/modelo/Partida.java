@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Pattern;
 
 
