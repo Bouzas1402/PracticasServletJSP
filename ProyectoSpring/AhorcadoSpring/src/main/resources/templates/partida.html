@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Partida</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+
 </head>
 <body>
 
@@ -13,7 +15,7 @@
     <p id="letrasFalladas" th:text="${partida.letrasFalladas}"> </p>
     <p id="respuesta" th:text="${respuesta}"> </p>
     <form action="#" method="post"
-    th:action="@{/partida/letra}"
+    th:action="@{/partida/{id}(id=${partida.id})}"
     th:object="${partida}">
         <label> Introduce una letra:
             <input class="form-control" type="text" th:name="letra" th:id="letra" minlength="1" maxlength="1"/>
@@ -24,6 +26,7 @@
         <input name="enviar" type="submit" value="Enviar letra"/>
     </form>
 
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>
