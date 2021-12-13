@@ -121,7 +121,7 @@ public class PartidaServicio {
 
     @PostConstruct
     public void init() throws Exception {
-        for (int i = 1; i <= 200; i++) {
+        for (int i = 1; i <= 50; i++) {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://palabras-aleatorias-public-api.herokuapp.com/random"))
