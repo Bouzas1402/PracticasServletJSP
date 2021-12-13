@@ -4,12 +4,15 @@ import es.carlosb.ahorcadospring.modelo.Partida;
 import es.carlosb.ahorcadospring.servicios.PartidaServicio;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -21,7 +24,11 @@ public class partidaControlador {
     private PartidaServicio servicio;
 
 
-    private Partida partida;
+   /* @InitBinder
+    public void miBinder(WebDataBinder binder) {
+        StringTrimmerEditor recortaEspaciosBlanco = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, recortaEspaciosBlanco);
+    } */
 
     @GetMapping("/")
     public String index (Model model) {
@@ -32,17 +39,18 @@ public class partidaControlador {
 
     @GetMapping("/partida/{id}")
     public String partida (@PathVariable("id") int id, Model model) {
-        partida = servicio.findById(id);
-        model.addAttribute("partida", servicio.findById(id));
+        Partida partida = servicio.findById(id);
+        if (partida == null){
+
+            return "redirect:/";
+        }
+        model.addAttribute("partida", partida);
         return "partida";
     }
 
     @PostMapping("partida/{id}")
     public String letraIntroducida (@RequestParam(value = "letra") String letra, @RequestParam(value = "id") int id, Model model) {
-        partida = servicio.findById(id);
-        if (partida == null){
-            return "index";
-        }
+        Partida partida = servicio.findById(id);
         String respuesta = servicio.letra(partida, letra.toLowerCase());
         if (partida.getIntentos().equals("Has ganado")) {
             model.addAttribute("ganador", "Felicidades has ganado");
@@ -57,16 +65,37 @@ public class partidaControlador {
     }
 
     @PostMapping("/nueva")
-    public String nuevaPartida(@Valid Partida partida, BindingResult bindingResult, @RequestParam(value = "palabra") String palabra) {
-
-        servicio.nuevaPalabra(palabra.toLowerCase());
-        if (bindingResult.hasErrors()){
-            return "redirect:/";
+    public String nuevaPartida(@Valid @ModelAttribute("partida") Partida partida, BindingResult resultados, Model model) {
+        if (resultados.hasErrors()){
+            model.addAttribute("partidas", servicio.findAll());
+            model.addAttribute("partida", partida);
+            return "index";
+        }
+        boolean nuevaPalabra = servicio.nuevaPalabra(servicio.letraSinTilde(partida.getPalabraOculta().toLowerCase()));
+        if (!nuevaPalabra) {
+            model.addAttribute("partidas", servicio.findAll());
+            model.addAttribute("partida", partida);
+            model.addAttribute("palabraRepetida", "Ya has introducido esta palabra");
+            return "index";
         }
         return "redirect:/";
     }
 
+    @GetMapping("/reiniciar/{id}")
+    public String reiniciarPartida(@PathVariable("id") int id){
+        Partida partida = servicio.findById(id);
+        if (partida == null){
+            return "redirect:/";
+        }
+        String letrasAcertadas = "";
+        for (int i = 0; i < partida.getPalabraOculta().length(); i++){
+            letrasAcertadas += "_";
+        }
+        partida.setLetrasAcertadas(letrasAcertadas);
+        partida.setLetrasFalladas("");
+        partida.setIntentos("seis");
+        return "redirect:/";
+    }
 
-  //  @ExceptionHandler
-  //  @ResponseStatus()
+
 }

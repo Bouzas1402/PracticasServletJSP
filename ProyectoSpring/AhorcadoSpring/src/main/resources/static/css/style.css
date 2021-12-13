@@ -1,42 +1,105 @@
-#seis {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') 0 0;
+/* FuzzyBubbles-Bold */
+@font-face {
+    font-family: 'FuzzyBubbles';
+    font-style: auto;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../font/FuzzyBubbles-Bold.ttf) format('truetype');
 }
-#cinco {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -78.15px 0;
+/* Smooch-Regular */
+@font-face {
+    font-family: 'Smooch-Regular';
+    font-style: auto;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../font/Smooch-Regular.ttf) format('truetype');
 }
-#cuatro {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -156.30px 0;
+/* Redacted */
+@font-face {
+    font-family: 'Redacted';
+    font-style: auto;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../font/Redacted-Regular.ttf) format('truetype');
 }
-#tres {
+
+/* Imagenes ahorcado */
+#cero {
     width: 78.15px;
     height: 92px;
     border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -234.45px 0;
-}
-#dos {
-    width: 78.15px;
-    height: 92px;
-    border: 1px black solid;
-    background: url('../img/images.jpg') -312.60px 0;
+    background: url('../img/ahorcados.jpg') -1.75px 0;
 }
 #uno {
     width: 78.15px;
     height: 92px;
     border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -390.75px 0;
+    background: url('../img/ahorcados.jpg') -79.75px, 0;
 }
-#cero {
+#dos {
     width: 78.15px;
     height: 92px;
     border: 1px black solid;
-    background: url('../img/ahorcados.jpg') -468.90px 0;
+    background: url('../img/ahorcados.jpg') -158.75px 0;
+}
+#tres {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -236.75px 0;
+}
+#cuatro {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -314.75px 0;
+}
+#cinco {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -392.75px 0;
+}
+#sies {
+    width: 78.15px;
+    height: 92px;
+    border: 1px black solid;
+    background: url('../img/ahorcados.jpg') -471.75px 0;
+}
+
+
+* {
+    font-family: FuzzyBubbles, serif;
+}
+#titulo {
+    font-family: Smooch-Regular, serif;
+    font-size: 150px;
+    text-shadow: 20px 2px 10px;
+}
+#tablaPartidas {
+    box-shadow: 20px 10px 10px;
+
+}
+#tablaPartidas, th {
+    border-radius: 10px;
+}
+#principal {
+    width: 60%;
+}
+
+#tapado {
+    font-family: Redacted, serif;
+}
+#intentos {
+    font-family: Smooch-Regular, serif;
+    font-size: 60px;
+}
+#letras-falladas, #letras-acertadas {
+    text-transform: uppercase;
+}
+#letras-acertadas {
+    font-size: 50px;
+}
+#letras-falladas {
+    font-size: 30px;
 }
