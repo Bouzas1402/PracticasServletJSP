@@ -17,7 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
                 .withUser("admin")
                 .password("admin")
-                .roles("AAMIN");
+                .roles("ADMIN");
     }
 
 }

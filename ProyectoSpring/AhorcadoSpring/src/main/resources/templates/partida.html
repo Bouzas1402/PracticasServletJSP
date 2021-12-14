@@ -11,9 +11,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="row">
-                <h3 id="intentos" class="col-10 m-auto text-center" th:text="'Usted tiene ' + ${partida.intentos} + ' intentos'">hola</h3>
+                <h3 id="intentos" class="col-10 m-auto text-center" th:text="'Intentos: ' + ${partida.intentos}"></h3>
             </div>
-
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="col-2">
@@ -24,7 +23,6 @@
                         <div id="letras-falladas" th:text="${partida.letrasFalladas}"> </div>
                     </div>
                 </div>
-
                         <div class="row">
                             <div class="col">
                                 <p id="letras-acertadas" class="col align-self-end text-center">
@@ -36,11 +34,6 @@
                                 </p>
                             </div>
                         </div>
-
-
-
-
-
                 <div class="row">
                     <div class="col col-sm-4 m-auto">
                         <form action="#" method="post"
@@ -51,15 +44,11 @@
                             </label>
                             <input th:field="*{id}" type="hidden" th:value="${partida.id}" th:name="id" th:id="id" placeholder="Introduce una letra"/>
                             <br>
-                            <input class="btn" name="enviar" type="submit" value="Enviar letra"/>
+                            <input name="enviar" type="submit" value="Enviar letra"/>
                         </form>
                         <div id="respuesta" th:text="${respuesta}"> </div>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
 

@@ -3,13 +3,19 @@ package es.carlosb.ahorcadospring.servicios;
 import es.carlosb.ahorcadospring.modelo.Partida;
 import org.springframework.stereotype.Service;
 
+
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.Normalizer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service // para que nos proporcione toda la maquinaria para que se comunique con un servicio.
 public class PartidaServicio {
@@ -102,6 +108,9 @@ public class PartidaServicio {
     }
 
     public String letraSinTilde (String letra) {
+        if (letra.contains("ñ")){
+            return letraSinTilde(letra);
+        }
         String letrasSinTildes = Normalizer.normalize(letra, Normalizer.Form.NFD);
         letrasSinTildes = letrasSinTildes.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "");
         return letrasSinTildes;
@@ -119,17 +128,25 @@ public class PartidaServicio {
         return true;
     }
 
+    public String nuevaPalabra() {
+        String documento = "";
+        HttpClient cliente = HttpClient.newHttpClient();
+        HttpRequest respuesta = HttpRequest.newBuilder().uri(URI.create("https://palabras-aleatorias-public-api.herokuapp.com/random")).build();
+        documento = cliente.sendAsync(respuesta, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .join();
+        String[] respuestaProcesada = documento.split(":",13);
+        String palabra = letraSinTilde(respuestaProcesada[12].split("\"")[1]);
+        return palabra;
+    }
+
+
     @PostConstruct
     public void init() throws Exception {
-        for (int i = 1; i <= 200; i++) {
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://palabras-aleatorias-public-api.herokuapp.com/random"))
-                    .build();
-            String respuesta =  client.send(request, HttpResponse.BodyHandlers.ofString()).body();
-            String[] respuestaProcesada = respuesta.split(":",13);
-            String palabra = letraSinTilde(respuestaProcesada[12].split("\"")[1]);
-            repositorio.add(new Partida(i,palabra));
+        for (int i = 1; i <= 25; i++) {
+        String palabra = nuevaPalabra();
+        repositorio.add(new Partida(i, palabra));
         }
+
     }
 }

@@ -81,6 +81,15 @@ public class partidaControlador {
         return "redirect:/";
     }
 
+    @PostMapping("/nuevasPalabras")
+    public String nuevasPalabras(@RequestParam("numeroPalabras") int numeroPalabras) {
+            for (int i = 1; i <= numeroPalabras; i++) {
+                String palabra = servicio.nuevaPalabra();
+                servicio.nuevaPalabra(palabra);
+            }
+        return "redirect:/";
+    }
+
     @GetMapping("/reiniciar/{id}")
     public String reiniciarPartida(@PathVariable("id") int id){
         Partida partida = servicio.findById(id);

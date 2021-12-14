@@ -71,22 +71,45 @@
     </div>
 
 
-    <form id="nueva-palabra" class="m-auto col col-sm-4"
-          action="/nueva" method="post"
-          th:action="@{/nueva}"
-          th:object="${partida}">
-        <div class="form-group"
-             th:classappend="${#fields.hasErrors('palabraOculta')} ? 'has-error'">
-            <label> Introduce una nueva palabra:
-                <input th:field="*{palabraOculta}" class="form-control" type="password" th:name="palabraOculta" th:id="palabraOculta" required/>
-                <span th:if="${#fields.hasErrors('palabraOculta')}" th:errors="*{palabraOculta}"
-                      class="help-block" id="palabraOculta-error"></span>
-            </label>
-            <p th:text="${palabraRepetida}"></p>
+    <div class="row">
+        <div class="col col-sm-6 m-auto">
+            <form id="nueva-palabra" class="col col-sm-4"
+                  action="/nueva" method="post"
+                  th:action="@{/nueva}"
+                  th:object="${partida}">
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('palabraOculta')} ? 'has-error'">
+                    <label> Introduce una nueva palabra:
+                        <input th:field="*{palabraOculta}" class="form-control" type="password" th:name="palabraOculta" th:id="palabraOculta" required/>
+                        <span th:if="${#fields.hasErrors('palabraOculta')}" th:errors="*{palabraOculta}"
+                              class="help-block" id="palabraOculta-error"></span>
+                    </label>
+                    <p th:text="${palabraRepetida}"></p>
 
+                </div>
+                <input name="enviar" type="submit" value="Enviar palabra"/>
+            </form>
         </div>
-        <input name="enviar" type="submit" value="Enviar palabra"/>
-    </form>
+        <div class="col col-sm-4 m-auto">
+            <form action="#" method="post"
+                  th:action="@{/nuevasPalabras}">
+                <label> Introduce las palabras que quieres generar:
+                    <select name="numeroPalabras">
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="20">20</option>
+                    </select>
+                </label>
+                <input name="enviar" type="submit" value="Nueva palabras"/>
+            </form>
+        </div>
+
+
+    </div>
+
+
+
 
 
     <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>

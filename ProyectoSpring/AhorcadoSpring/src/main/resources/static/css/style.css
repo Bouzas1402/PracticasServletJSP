@@ -60,7 +60,8 @@
     border: 1px black solid;
     background: url('../img/ahorcados.jpg') -392.75px 0;
 }
-#sies {
+
+#seis {
     width: 78.15px;
     height: 92px;
     border: 1px black solid;
@@ -92,7 +93,7 @@
 }
 #intentos {
     font-family: Smooch-Regular, serif;
-    font-size: 60px;
+    font-size: 100px;
 }
 #letras-falladas, #letras-acertadas {
     text-transform: uppercase;
