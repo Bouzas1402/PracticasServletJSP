@@ -108,11 +108,29 @@ public class PartidaServicio {
     }
 
     public String letraSinTilde (String letra) {
-        if (letra.contains("ñ")){
-            return letraSinTilde(letra);
+        int index = letra.indexOf("ñ");
+        ArrayList<Integer> indices = new ArrayList<Integer>();
+        for (int i = 0; i < letra.length(); i++) {
+            if(letra.charAt(i) == 'ñ'){
+                indices.add(i);
+            }
         }
+
+
+
         String letrasSinTildes = Normalizer.normalize(letra, Normalizer.Form.NFD);
         letrasSinTildes = letrasSinTildes.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "");
+        if (index > 0){
+            String [] arrayPalabra = letrasSinTildes.split("");
+            for (int i = 0; i < arrayPalabra.length; i++) {
+
+            }
+        }
+        StringBuilder sb = new StringBuilder(letrasSinTildes);
+        for (int i = 0; i < indices.size(); i++) {
+            sb.setCharAt(indices.get(i).intValue(), 'ñ');
+            letrasSinTildes = sb.toString();
+        }
         return letrasSinTildes;
     }
 
@@ -128,7 +146,7 @@ public class PartidaServicio {
         return true;
     }
 
-    public String nuevaPalabra() {
+    public String nuevaPalabraURL() {
         String documento = "";
         HttpClient cliente = HttpClient.newHttpClient();
         HttpRequest respuesta = HttpRequest.newBuilder().uri(URI.create("https://palabras-aleatorias-public-api.herokuapp.com/random")).build();
@@ -144,7 +162,7 @@ public class PartidaServicio {
     @PostConstruct
     public void init() throws Exception {
         for (int i = 1; i <= 25; i++) {
-        String palabra = nuevaPalabra();
+        String palabra = nuevaPalabraURL();
         repositorio.add(new Partida(i, palabra));
         }
 

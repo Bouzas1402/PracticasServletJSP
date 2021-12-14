@@ -84,7 +84,7 @@ public class partidaControlador {
     @PostMapping("/nuevasPalabras")
     public String nuevasPalabras(@RequestParam("numeroPalabras") int numeroPalabras) {
             for (int i = 1; i <= numeroPalabras; i++) {
-                String palabra = servicio.nuevaPalabra();
+                String palabra = servicio.nuevaPalabraURL();
                 servicio.nuevaPalabra(palabra);
             }
         return "redirect:/";
