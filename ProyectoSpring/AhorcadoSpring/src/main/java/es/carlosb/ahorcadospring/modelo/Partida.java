@@ -4,7 +4,6 @@ package es.carlosb.ahorcadospring.modelo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 
@@ -17,8 +16,8 @@ public class Partida {
     private long id;
 
 
-    // @Pattern(regexp = "[a-zA-z]", message = "Solo se aceptan letras")
-    //@Pattern(regexp = "[a-zA-Z]", message = "Solo se aceptan letras")
+    //@Pattern(regexp = "hola", message = "Solo se aceptan letras")
+    //@Pattern(regexp = "[a-zA-z]", message = "Solo se aceptan letras")
     @Size(min = 3, message = "La palabra es muy corta")
     private String palabraOculta;
 

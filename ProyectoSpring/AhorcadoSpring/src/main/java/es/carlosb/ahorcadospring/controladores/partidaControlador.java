@@ -1,40 +1,29 @@
 package es.carlosb.ahorcadospring.controladores;
 
 import es.carlosb.ahorcadospring.modelo.Partida;
+
 import es.carlosb.ahorcadospring.servicios.PartidaServicio;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Locale;
 
 @Slf4j
 @Controller
 public class partidaControlador {
 
-    @Autowired // Si no se lo ponemos es posible que no se injecte toda la ingenieria que hay en la anotacion servio de esta clase
+    @Autowired
     private PartidaServicio servicio;
-
-
-   /* @InitBinder
-    public void miBinder(WebDataBinder binder) {
-        StringTrimmerEditor recortaEspaciosBlanco = new StringTrimmerEditor(true);
-        binder.registerCustomEditor(String.class, recortaEspaciosBlanco);
-    } */
 
     @GetMapping("/")
     public String index (Model model) {
         model.addAttribute("partidas", servicio.findAll());
         model.addAttribute("partida", new Partida());
-        return "index";
+        return "index2";
     }
 
     @GetMapping("/partida/{id}")
@@ -69,14 +58,14 @@ public class partidaControlador {
         if (resultados.hasErrors()){
             model.addAttribute("partidas", servicio.findAll());
             model.addAttribute("partida", partida);
-            return "index";
+            return "index2";
         }
         boolean nuevaPalabra = servicio.nuevaPalabra(servicio.letraSinTilde(partida.getPalabraOculta().toLowerCase()));
         if (!nuevaPalabra) {
             model.addAttribute("partidas", servicio.findAll());
             model.addAttribute("partida", partida);
             model.addAttribute("palabraRepetida", "Ya has introducido esta palabra");
-            return "index";
+            return "index2";
         }
         return "redirect:/";
     }

@@ -1,13 +1,9 @@
 package es.carlosb.ahorcadospring.servicios;
 
 import es.carlosb.ahorcadospring.modelo.Partida;
+
 import org.springframework.stereotype.Service;
-
-
 import javax.annotation.PostConstruct;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -17,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Service // para que nos proporcione toda la maquinaria para que se comunique con un servicio.
+@Service
 public class PartidaServicio {
 
 
@@ -110,22 +106,15 @@ public class PartidaServicio {
     public String letraSinTilde (String letra) {
         int index = letra.indexOf("ñ");
         ArrayList<Integer> indices = new ArrayList<Integer>();
-        for (int i = 0; i < letra.length(); i++) {
-            if(letra.charAt(i) == 'ñ'){
-                indices.add(i);
+        if (index >= 0) {
+            for (int i = 0; i < letra.length(); i++) {
+                if(letra.charAt(i) == 'ñ'){
+                    indices.add(i);
+                }
             }
         }
-
-
-
         String letrasSinTildes = Normalizer.normalize(letra, Normalizer.Form.NFD);
         letrasSinTildes = letrasSinTildes.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "");
-        if (index > 0){
-            String [] arrayPalabra = letrasSinTildes.split("");
-            for (int i = 0; i < arrayPalabra.length; i++) {
-
-            }
-        }
         StringBuilder sb = new StringBuilder(letrasSinTildes);
         for (int i = 0; i < indices.size(); i++) {
             sb.setCharAt(indices.get(i).intValue(), 'ñ');
@@ -158,13 +147,11 @@ public class PartidaServicio {
         return palabra;
     }
 
-
     @PostConstruct
     public void init() throws Exception {
         for (int i = 1; i <= 25; i++) {
         String palabra = nuevaPalabraURL();
         repositorio.add(new Partida(i, palabra));
         }
-
     }
 }
