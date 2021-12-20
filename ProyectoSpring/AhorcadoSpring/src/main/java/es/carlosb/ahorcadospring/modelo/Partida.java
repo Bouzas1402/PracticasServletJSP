@@ -16,8 +16,8 @@ public class Partida {
     private long id;
 
 
-    //@Pattern(regexp = "hola", message = "Solo se aceptan letras")
-    //@Pattern(regexp = "[a-zA-z]", message = "Solo se aceptan letras")
+    //@Pattern(regexp = "hola")
+    //@Pattern(regexp = "[a-zA-z]")
     @Size(min = 3, message = "La palabra es muy corta")
     private String palabraOculta;
 

@@ -36,6 +36,7 @@ public class PartidaServicio {
         return partida;
     }
 
+    // Metodo que procesa las letras introducidas:
     public String letra(Partida partida, String letra) {
         String respuesta = "";
         String letraSinTilde = letraSinTilde(letra);
@@ -58,6 +59,7 @@ public class PartidaServicio {
         return respuesta;
     }
 
+    // metodo que dibuja las letras acertadas;
     public String dibujarLetrasAcertadas (Partida partida, String letra) {
         String aciertos = "";
         String [] arrayLetrasAcertadas = partida.getLetrasAcertadas().split("");
@@ -69,12 +71,14 @@ public class PartidaServicio {
                 aciertos +=  arrayLetrasAcertadas[i];
             }
         }
+        // Si la letrasAcertadas es igual a la palabra significa que hemos ganado y devuelve un "Has ganado"
         if (aciertos.equals(partida.getPalabraOculta())) {
             partida.setIntentos("Has ganado");
         }
         return aciertos;
     }
 
+    // Este metodo coge las letras falladas y segun el numero de letras devuelve el numero de intentos, si no quedan mas intentos devolvera un "Has fallado"
     public String fallos (String letrasFalladas) {
         String fallos = "";
         switch (letrasFalladas.length()) {
@@ -103,7 +107,11 @@ public class PartidaServicio {
         return fallos;
     }
 
+    // Comprueba que tanto las letras como las palabras introducidas no lleven tildes, dieresis o algun caracter que no admitamos
     public String letraSinTilde (String letra) {
+        // el metodo usado cambia tambien las ñ, ya que no estan en el estandar UTF-8,
+        // si hay una ñ, se recorre el string y se guardan los indices donde aparecen las ñ para luego cambiar las n de esos indices
+        // (ya que se cambiaran las ñ por n) por ñ
         int index = letra.indexOf("ñ");
         ArrayList<Integer> indices = new ArrayList<Integer>();
         if (index >= 0) {
@@ -123,6 +131,7 @@ public class PartidaServicio {
         return letrasSinTildes;
     }
 
+    // metodo que recoge una nueva palabra desde un imput comprueba que no esta ya en el repositorio de palabras
     public boolean nuevaPalabra(String palabra) {
         for (int i = 0; i < repositorio.size(); i++) {
             String palabraOculta = repositorio.get(i).getPalabraOculta();
@@ -134,7 +143,7 @@ public class PartidaServicio {
         repositorio.add(new Partida(ultimoId, palabra));
         return true;
     }
-
+    // busca una palabra en una pagina web que genera palabras aleatorias
     public String nuevaPalabraURL() {
         String documento = "";
         HttpClient cliente = HttpClient.newHttpClient();
