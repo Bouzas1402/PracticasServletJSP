@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Controller
@@ -40,6 +42,13 @@ public class partidaControlador {
     @PostMapping("partida/{id}")
     public String letraIntroducida (@RequestParam(value = "letra") String letra, @RequestParam(value = "id") int id, Model model) {
         Partida partida = servicio.findById(id);
+        Pattern pat = Pattern.compile("[a-zA-Zñ]");
+        Matcher mat = pat.matcher(letra);
+        if (!mat.matches()) {
+            model.addAttribute("partida", partida);
+            model.addAttribute("respuesta", "No es una letra valida");
+            return "partida";
+        }
         String respuesta = servicio.letra(partida, letra.toLowerCase());
         if (partida.getIntentos().equals("Has ganado")) {
             model.addAttribute("ganador", "Felicidades has ganado");
@@ -94,5 +103,6 @@ public class partidaControlador {
         partida.setIntentos("seis");
         return "redirect:/";
     }
+
 
 }
