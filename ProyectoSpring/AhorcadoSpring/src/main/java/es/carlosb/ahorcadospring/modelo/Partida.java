@@ -15,9 +15,7 @@ public class Partida {
     @Min(0)
     private long id;
 
-
-    //@Pattern(regexp = "hola")
-    //@Pattern(regexp = "[a-zA-z]")
+    @Pattern(regexp = "^[a-zA-z]*$")
     @Size(min = 3, message = "La palabra es muy corta")
     private String palabraOculta;
 
