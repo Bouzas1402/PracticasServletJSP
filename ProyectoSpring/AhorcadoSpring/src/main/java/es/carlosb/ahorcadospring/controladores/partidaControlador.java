@@ -23,7 +23,7 @@ public class partidaControlador {
     public String index (Model model) {
         model.addAttribute("partidas", servicio.findAll());
         model.addAttribute("partida", new Partida());
-        return "index2";
+        return "index";
     }
 
     @GetMapping("/partida/{id}")
@@ -58,14 +58,14 @@ public class partidaControlador {
         if (resultados.hasErrors()){
             model.addAttribute("partidas", servicio.findAll());
             model.addAttribute("partida", partida);
-            return "index2";
+            return "index";
         }
         boolean nuevaPalabra = servicio.nuevaPalabra(servicio.letraSinTilde(partida.getPalabraOculta().toLowerCase()));
         if (!nuevaPalabra) {
             model.addAttribute("partidas", servicio.findAll());
             model.addAttribute("partida", partida);
             model.addAttribute("palabraRepetida", "Ya has introducido esta palabra");
-            return "index2";
+            return "index";
         }
         return "redirect:/";
     }
@@ -94,6 +94,5 @@ public class partidaControlador {
         partida.setIntentos("seis");
         return "redirect:/";
     }
-
 
 }
