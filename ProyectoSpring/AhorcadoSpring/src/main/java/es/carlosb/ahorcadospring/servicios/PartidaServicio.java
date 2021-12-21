@@ -1,8 +1,8 @@
 package es.carlosb.ahorcadospring.servicios;
 
 import es.carlosb.ahorcadospring.modelo.Partida;
-
 import org.springframework.stereotype.Service;
+
 import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,7 +10,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Servicio de la Clase Partida.
@@ -21,7 +20,7 @@ import java.util.List;
 public class PartidaServicio {
 
 
-    private List<Partida> repositorio = new ArrayList<>();
+    private List<Partida> repositorio = new ArrayList<Partida>();
 
     /**
      * Agrega una partida recibida como parámetro al repositorio de partidas.
@@ -33,7 +32,7 @@ public class PartidaServicio {
 
     /**
      * Método que devuelve en un arrayList con todas las partidas del repositorio.
-     * @return repositorio List<Partidas>: ArrayList relleno de las partidas del repositorio.
+     * @return repositorio ArrayList: ArrayList relleno de las partidas del repositorio.
      */
     public List<Partida> findAll() {
         return repositorio;
@@ -64,7 +63,7 @@ public class PartidaServicio {
      * @return respuesta String: Se enviara un String respuesta que dirá que ocurrió con la letra.
      */
     public String letra(Partida partida, String letra) {
-        String respuesta = "";
+        String respuesta;
         String letraSinTilde = letraSinTilde(letra);
         String letrasFalladas = partida.getLetrasFalladas();
         String letrasAcertadas = partida.getLetrasAcertadas();
@@ -78,8 +77,8 @@ public class PartidaServicio {
         }  else {
             partida.setLetrasFalladas(letrasFalladas + letraSinTilde);
             /**
-             * Cuando se suma una letra al String letraFallada se envia letrasFalladas al metodo fallos() que calcula el numero de intentos en
-             * funcion de la longitus de letrasFalladas y se envía el valor devuelto al valor de intentos de la partida introducida.
+             * Cuando se suma una letra al String letraFallada se envéa letrasFalladas al método fallos() que calcula el número de intentos en
+             * función de la longitud de letrasFalladas y se envía el valor devuelto al valor de intentos de la partida introducida.
              */
             String intentos = fallos(partida.getLetrasFalladas());
             partida.setIntentos(intentos);
@@ -199,15 +198,15 @@ public class PartidaServicio {
      * @return palabra String: palabra generada automaticamente para la palabraOculta de una nueva Partida.
      */
     public String nuevaPalabraURL() {
-        String documento = "";
+        String documento;
         HttpClient cliente = HttpClient.newHttpClient();
         HttpRequest respuesta = HttpRequest.newBuilder().uri(URI.create("https://palabras-aleatorias-public-api.herokuapp.com/random")).build();
         documento = cliente.sendAsync(respuesta, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
                 .join();
         String[] respuestaProcesada = documento.split(":",13);
-        String palabra = letraSinTilde(respuestaProcesada[12].split("\"")[1]);
-        return palabra;
+        String palabraDevuelta = letraSinTilde(respuestaProcesada[12].split("\"")[1]);
+        return palabraDevuelta;
     }
 
     /**
