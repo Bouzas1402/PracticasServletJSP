@@ -12,22 +12,40 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Servicio de la Clase Partida.
+ * @author Carlos Bouzas Álvaro
+ * @version 21/12/2021
+ */
 @Service
 public class PartidaServicio {
 
 
     private List<Partida> repositorio = new ArrayList<>();
 
-    public Partida add(Partida p) {
+    /**
+     * Agrega una partida recibida como parámetro al repositorio de partidas.
+     * @param p Partida: Este parametro se introducira en el repositorio de partidas.
+     */
+    public void add(Partida p) {
         repositorio.add(p);
-        return p;
     }
 
+    /**
+     * Método que devuelve en un arrayList con todas las partidas del repositorio.
+     * @return repositorio List<Partidas>: ArrayList relleno de las partidas del repositorio.
+     */
     public List<Partida> findAll() {
         return repositorio;
     }
 
+    /**
+     * Método que recibe un id y devuelve la partida con ese id, si el id es mayor a la longitud del array significara que
+     * el id no pertenece al repositorio de partidas.
+     * @param id int: Partida id.
+     * @return null: Si el id introducido no esta entre los id del repositorio de partidas.
+     * @return partida Partida: devuelve la partida del id introducido si se encuentra entre el repositorio de partidas.
+     */
     public Partida findById(int id) {
         if (repositorio.size() < id) {
             return null;
@@ -36,14 +54,21 @@ public class PartidaServicio {
         return partida;
     }
 
-    // Metodo que procesa las letras introducidas:
+    /**
+     * Método que recibe una Partida y una letra, comprueba si esa letra esta en el String de letrasAcertdas o letrasFalladas
+     * de la partida introducida. Si está significa que esa letra ya se ha introducido, si no está, se comprobara si esta en la palabraOculta,
+     * si esta significara un acierto, si no está significara un fallo y se agregara la letra al array de letrasAcertadas
+     * o letrasFalladas de la partida introducida.
+     * @param partida Partida: Partida.
+     * @param letra String: letra introducida durante el juego y que se comprobara con el juego en marcha.
+     * @return respuesta String: Se enviara un String respuesta que dirá que ocurrió con la letra.
+     */
     public String letra(Partida partida, String letra) {
         String respuesta = "";
         String letraSinTilde = letraSinTilde(letra);
         String letrasFalladas = partida.getLetrasFalladas();
         String letrasAcertadas = partida.getLetrasAcertadas();
         String palabraOculta = partida.getPalabraOculta();
-
         if (letrasAcertadas.contains(letraSinTilde) || letrasFalladas.contains(letraSinTilde)){
             respuesta = "Ya has introducido la letra " + letra.toUpperCase();
         } else if (palabraOculta.contains(letraSinTilde)) {
@@ -52,6 +77,10 @@ public class PartidaServicio {
             respuesta = "Letra " + letra.toUpperCase() +  " acertada";
         }  else {
             partida.setLetrasFalladas(letrasFalladas + letraSinTilde);
+            /**
+             * Cuando se suma una letra al String letraFallada se envia letrasFalladas al metodo fallos() que calcula el numero de intentos en
+             * funcion de la longitus de letrasFalladas y se envía el valor devuelto al valor de intentos de la partida introducida.
+             */
             String intentos = fallos(partida.getLetrasFalladas());
             partida.setIntentos(intentos);
             respuesta = "Letra " + letra.toUpperCase() +  " fallada";
@@ -59,7 +88,15 @@ public class PartidaServicio {
         return respuesta;
     }
 
-    // metodo que dibuja las letras acertadas;
+    /**
+     * Método que recoge una Partida y un String comprueba si la letra aparece en algún lugar del String palabraOculta de la partida introducida
+     * y si está introduce esa letra en palabrasAcertadas de la partida introducida en el mismo sitio donde aparece en palabraOculta, sustituyendo en
+     * letrasAcertadas "_" por la letra introducida.
+     * @param partida Partida: Partida.
+     * @param letra String:
+     * @return aciertos String: letrasAcertadas. Devuelve un String donde las letras que aun no han sido acertadas valdran "_" y las que se acierten
+     * se destaparan.
+     */
     public String dibujarLetrasAcertadas (Partida partida, String letra) {
         String aciertos = "";
         String [] arrayLetrasAcertadas = partida.getLetrasAcertadas().split("");
@@ -71,15 +108,17 @@ public class PartidaServicio {
                 aciertos +=  arrayLetrasAcertadas[i];
             }
         }
-        // Si la letrasAcertadas es igual a la palabra significa que hemos ganado y devuelve un "Has ganado"
         if (aciertos.equals(partida.getPalabraOculta())) {
             partida.setIntentos("Has ganado");
         }
         return aciertos;
     }
 
-    // Este metodo coge las letras falladas y segun el numero de letras devuelve el numero de intentos, si no quedan mas intentos devolvera un "Has fallado"
-    public String fallos (String letrasFalladas) {
+    /**
+     * Metodo que recibe un String y en función de la longitud de este retorna un String que dara valor a intentos de una Partida.
+     * @param letrasFalladas String: Partida letrasFallas.
+     * @return fallos String: Partida intentos. Devuelve un String con el número de intentos que le quedan a la partida.
+     */    public String fallos (String letrasFalladas) {
         String fallos = "";
         switch (letrasFalladas.length()) {
             case 0:
@@ -107,11 +146,15 @@ public class PartidaServicio {
         return fallos;
     }
 
-    // Comprueba que tanto las letras como las palabras introducidas no lleven tildes, dieresis o algun caracter que no admitamos
+    /**
+     * Metodo que recibe un String y lo devuelve sin caracteres fuera de UTF-8 (excepto la ñ)
+     * @param letra String: letra o palabra nueva introducida en la aplicación.
+     * @return letrasSinTildes String: la palabra nueva o letra introducida pero sin los caracteres que queremos eliminar.
+     */
     public String letraSinTilde (String letra) {
-        // el metodo usado cambia tambien las ñ, ya que no estan en el estandar UTF-8,
-        // si hay una ñ, se recorre el string y se guardan los indices donde aparecen las ñ para luego cambiar las n de esos indices
-        // (ya que se cambiaran las ñ por n) por ñ
+        /**
+         * Se comprueba si la ñ aparece o no en el String introducido, si esta se recorre y se guardan las posiciones donde aparece la ñ
+         */
         int index = letra.indexOf("ñ");
         ArrayList<Integer> indices = new ArrayList<Integer>();
         if (index >= 0) {
@@ -124,6 +167,9 @@ public class PartidaServicio {
         String letrasSinTildes = Normalizer.normalize(letra, Normalizer.Form.NFD);
         letrasSinTildes = letrasSinTildes.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "");
         StringBuilder sb = new StringBuilder(letrasSinTildes);
+        /**
+         * Una vez convertido el String lo recorremos y sustituimos el caracter en las posiciones guardadas de letrasSinTildes por ñ.
+         */
         for (int i = 0; i < indices.size(); i++) {
             sb.setCharAt(indices.get(i).intValue(), 'ñ');
             letrasSinTildes = sb.toString();
@@ -131,7 +177,12 @@ public class PartidaServicio {
         return letrasSinTildes;
     }
 
-    // metodo que recoge una nueva palabra desde un imput comprueba que no esta ya en el repositorio de palabras
+    /**
+     * Metodo que recibe un String saca el último id del repositorio y crea una nueva partida con el ultimo id +1 y el String introducido.
+     * Si la palabra no está en ninguna de las partidas del repositorio se agrega la partida al repositorio, si no, la partida no se agregará.
+     * @param palabra String: nueva palabra para un nueva partida.
+     * @return boolean: false si el String introducido ya coincide con alguna palabraOculta de algunas de las partidas true si no coincide.
+     */
     public boolean nuevaPalabra(String palabra) {
         for (int i = 0; i < repositorio.size(); i++) {
             String palabraOculta = repositorio.get(i).getPalabraOculta();
@@ -143,7 +194,10 @@ public class PartidaServicio {
         repositorio.add(new Partida(ultimoId, palabra));
         return true;
     }
-    // busca una palabra en una pagina web que genera palabras aleatorias
+    /**
+     * Metodo que coge devuelve una palabra de una página que genera palabras aleatorias.
+     * @return palabra String: palabra generada automaticamente para la palabraOculta de una nueva Partida.
+     */
     public String nuevaPalabraURL() {
         String documento = "";
         HttpClient cliente = HttpClient.newHttpClient();
@@ -156,11 +210,14 @@ public class PartidaServicio {
         return palabra;
     }
 
+    /**
+     * Metodo que se inicia al comienzo del programa y que genera 25 partidas con palabraOculta aleatorias.
+     */
     @PostConstruct
     public void init() throws Exception {
         for (int i = 1; i <= 25; i++) {
         String palabra = nuevaPalabraURL();
-        repositorio.add(new Partida(i, palabra));
+        this.nuevaPalabra(palabra);
         }
     }
 }

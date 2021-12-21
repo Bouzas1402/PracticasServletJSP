@@ -12,7 +12,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="row">
+
                 <h3 id="intentos" class="col-10 m-auto text-center" th:text="'Intentos: ' + ${partida.intentos}"></h3>
+                <div class="col-2 m-auto">
+                        <a class="btn btn-success mt-3" aria-current="page" href="" th:href="@{/}">Volver</a>
+                </div>
             </div>
                 <div class="row">
                     <div class="col-4"></div>
