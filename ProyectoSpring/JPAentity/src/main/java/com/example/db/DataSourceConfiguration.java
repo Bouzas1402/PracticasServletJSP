@@ -1,13 +1,14 @@
 package com.example.db;
 
-import jakarta.annotation.sql.DataSourceDefinition;
+
+import javax.annotation.sql.DataSourceDefinition;
 
 @DataSourceDefinition(
         className = "com.mysql.cj.jdbc.MysqlConnectionPoolDataSource",
-        name = "java:/jdbc/personalBudgetAnnotation",
+        name = "java:/jdbc/JPAentity",
         serverName = "localhost",
         databaseName = "quevedodb",
-        portNumber = 3307,
+        portNumber = 3308,
         user = "quevedo",
         password = "quevedo",
         initialPoolSize = 1,

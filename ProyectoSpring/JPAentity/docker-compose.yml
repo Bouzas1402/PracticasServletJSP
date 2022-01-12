@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  JPAentity-mysql:
+    image: mysql
+    container_name: JPAentity-mysql
+    ports: 
+      - "3308:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: quevedo
+      MYSQL_DATABASE: quevedodb
+      MYSQL_USER: quevedo
+      MYSQL_PASSWORD: quevedo
+    volumes:
+      - ./db-data:/var/lib/mysql
+
+  JPAentity-wildfly:
+    image: wildfly23
+    container_name: JPAentity-wildfly
+    depends_on:
+      - JPAentity-mysql
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+      - "8787:8787"
+    volumes:
+      - ~/1-modulos/DesarrolloWebEntornoServidor/Practicas/PracticasServletJSP/ProyectoSpring/JPAentity/target/docker:/opt/jboss/wildfly/standalone/deployments

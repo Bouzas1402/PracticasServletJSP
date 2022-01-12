@@ -7,7 +7,7 @@
     <groupId>com.example</groupId>
     <artifactId>JPAentity</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>JPA-entity</name>
+    <name>JPAentity</name>
     <packaging>war</packaging>
 
     <properties>
@@ -19,7 +19,6 @@
         <junit.version>5.7.1</junit.version>
         <wildfly.version>23.0.2.Final</wildfly.version>
     </properties>
-    <!-- Metiendo este bloque nos ocupamos de la versionde las dependencias siguientes -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -38,12 +37,10 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>${jakarta-ee.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -82,13 +79,13 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
-            <!-- Ver esto -->
             <scope>test</scope>
         </dependency>
     </dependencies>
 
+
     <build>
-        <finalName>JPA-entity</finalName>
+        <finalName>JPAentity</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

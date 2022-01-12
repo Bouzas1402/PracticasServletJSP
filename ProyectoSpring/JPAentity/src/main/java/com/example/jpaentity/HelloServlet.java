@@ -1,5 +1,7 @@
 package com.example.jpaentity;
 
+import jakarta.servlet.http.HttpServlet;
+
 import java.io.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
