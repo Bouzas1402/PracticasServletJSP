@@ -381,9 +381,9 @@
 </datasource>
 
 
-    -<datasource enabled="true" statistics-enabled="true" use-java-context="true" pool-name="JPAentity" jndi-name="java:/jdbc/JPAentity" use-ccm="true" jta="false">
+    -<datasource enabled="true" statistics-enabled="true" use-java-context="true" pool-name="quevedodb" jndi-name="java:/jdbc/quevedodb" use-ccm="true" jta="false">
 
-    <connection-url>jdbc:mysql://JPAentity:3308/quevedodb?autoReconnect=true&useSSL=false</connection-url>
+    <connection-url>jdbc:mysql://JPAentity-mysql:3306/quevedodb?autoReconnect=true&useSSL=false</connection-url>
 
     <driver>mysql</driver>
 

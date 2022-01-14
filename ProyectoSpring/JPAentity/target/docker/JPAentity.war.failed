@@ -1,0 +1,7 @@
+"{
+    \"WFLYCTL0412: Required services that are not installed:\" => [\"jboss.naming.context.java.jdbc.quevedodb\"],
+    \"WFLYCTL0180: Services with missing/unavailable dependencies\" => [
+        \"jboss.persistenceunit.\\\"JPAentity.war#persistenceUnit-quevedodb\\\".__FIRST_PHASE__ is missing [jboss.naming.context.java.jdbc.quevedodb]\",
+        \"jboss.persistenceunit.\\\"JPAentity.war#persistenceUnit-quevedodb\\\" is missing [jboss.naming.context.java.jdbc.quevedodb]\"
+    ]
+}"
